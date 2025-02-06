@@ -16,6 +16,11 @@
             <input type="text" id="task-text" placeholder="Type in your task here">
             <button onclick="addTask()">Add</button>
         </div>
+        <div class="filter">
+            <button onclick="filterTasks('all')">All</button>
+            <button onclick="filterTasks('completed')">Completed</button>
+            <button onclick="filterTasks('pending')">Pending</button>
+        </div>
         <div class="task-display">
             <ul id="task-list"></ul>
         </div>

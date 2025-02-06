@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Liter&display=swap");
 
+:root {
+  --primary-color: #1e90ff; 
+  --secondary-color: #ff8c00; 
+}
+
 body {
   font-family: "Liter", serif;
   font-weight: 400;
@@ -8,7 +13,7 @@ body {
 
 .header {
   text-align: center;
-  background-color: #1e90ff;
+  background-color: var(--primary-color);
   color: white;
   padding: 20px;
   border-radius: 8px;
@@ -25,7 +30,7 @@ body {
 .main-description {
   font-weight: 600;
   font-size: 20px;
-  color: #1e90ff;
+  color: var(--primary-color);
 }
 
 .task-input {
@@ -36,7 +41,7 @@ body {
   padding: 10px;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border: 2px solid #1e90ff;
+  border: 2px solid var(--primary-color);
   margin-bottom: 15px;
   outline: none;
   width: 50%;
@@ -46,7 +51,7 @@ body {
 .task-input button {
   padding: 10px;
   margin-left: 10px;
-  background-color: #ff8c00;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -56,7 +61,28 @@ body {
 }
 
 .task-input button:hover {
-  background-color: darkorange;
+  background-color: var(--primary-color);
+}
+
+.filter button {
+  padding: 10px;
+  margin: 5px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.filter button:hover {
+  background-color: var(--secondary-color);
+}
+
+.task-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #task-list li {
@@ -67,21 +93,33 @@ body {
   border-radius: 8px;
   width: 95%;
   font-size: 20px;
-  border-left: 5px solid #1e90ff;
+  border-left: 5px solid var(--primary-color);
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+#task-list span {
+  text-align: center; 
+  flex-grow: 1; 
 }
 
 #task-list button {
-  margin-left: 15px;
-  background-color: #1e90ff;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   padding: 10px;
   font-size: 15px;
+  margin-left: 10px; 
 }
 
 #task-list button:hover {
-  background-color: darkblue;
+  background-color: var(--secondary-color);
 }
 
+.completed {
+  text-decoration: line-through;
+  color: var(--primary-color);
+}

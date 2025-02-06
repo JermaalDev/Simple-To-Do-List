@@ -1,47 +1,111 @@
-
 //linking the html elements with variables to use in js 
 const taskInput = document.getElementById("task-text");
 const taskList = document.getElementById("task-list");
 
-//array for tasks
-const taskDisplay = [];
+// Load tasks from localStorage
+let taskDisplay = JSON.parse(localStorage.getItem('tasks')) || [];
 
 // Function to add task
 function addTask() {
     let task = taskInput.value.trim();
     if (task !== "") {
-        taskDisplay.push(task);
+        taskDisplay.push({ text: task, status: "pending" });  // Save status as 'pending'
         taskInput.value = "";
-        displayTasks()
+        saveTasks();
+        displayTasks();
     } else {
         alert("Please enter a task");
     }
 }
 
-//function to display tasks
-function displayTasks() {
-    taskList.innerHTML = ""
-    taskDisplay.forEach((task, index) => {
-        const li = document.createElement("li");
-        li.textContent = task;
+// Function to display tasks
+function displayTasks(filter = "all") {
+    taskList.innerHTML = "";
 
-        //add a delete button 
-        const deleteButton = document.createElement("button")
+    // Filter tasks based on the selected filter
+    let filteredTasks = taskDisplay.filter(task => 
+        filter === "all" || task.status === filter
+    );
+
+    filteredTasks.forEach((task, index) => {
+        const li = document.createElement("li");
+
+        // Create a span element for the task text
+        const taskText = document.createElement("span");
+        taskText.textContent = task.text;
+
+        // If the task is completed, style it differently
+        if (task.status === "completed") {
+            taskText.classList.add("completed");
+        }
+
+        // Add a button to mark the task as complete
+        const completeButton = document.createElement("button");
+        completeButton.textContent = "Complete";
+        completeButton.onclick = () => markComplete(index);
+
+        // Add a delete button
+        const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.onclick = () => deleteTask(index);
 
-        //dynamically add a delete button to each of the tasks
-        li.appendChild(deleteButton)
-        //dynamically add the task to the HTML display
-        taskList.appendChild(li)
-    })
+        // Append the task text and buttons to the list item
+        li.appendChild(taskText);
+        li.appendChild(completeButton);
+        li.appendChild(deleteButton);
+
+        // Add the list item to the task list
+        taskList.appendChild(li);
+    });
 }
 
-//function to delete a task
+
+// Function to mark task as completed
+function markComplete(index) {
+    taskDisplay[index].status = "completed";
+    saveTasks();
+    displayTasks();
+}
+
+// Function to delete task
 function deleteTask(index) {
     taskDisplay.splice(index, 1);
-    displayTasks()
+    saveTasks();
+    displayTasks();
 }
+
+// Function to filter tasks based on the status
+function filterTasks(status) {
+    displayTasks(status); // Show tasks according to the selected filter (all, completed, or pending)
+}
+
+// Save tasks to localStorage
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(taskDisplay));
+}
+
+// Display all tasks on initial load
+displayTasks();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
