@@ -12,15 +12,14 @@
     <div class="main">
         <p class="main-description">Type in your task to add a task to the list</p>
         <div class="task-input">
-            <input type="text" id="input-field" placeholder="Type in your task here">
-            <button type="submit" id="add-button">Add</button>
-            <button type="submit" id="remove-button">Delete Task</button>
+            <input type="text" id="task-text" placeholder="Type in your task here">
+            <button onclick="addTask()">Add</button>
         </div>
         <div class="task-display">
-            <ul class="task-list"> </ul>
+            <ul id="task-list"></ul>
         </div>
     </div>
     <div class="footer"></div>
+    <script src="Homepage.js"></script>
 </body>
-<script src="Homepage.js"></script>
 </html>
