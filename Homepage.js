@@ -9,7 +9,7 @@ let taskDisplay = JSON.parse(localStorage.getItem('tasks')) || [];
 function addTask() {
     let task = taskInput.value.trim();
     if (task !== "") {
-        taskDisplay.push({ text: task, status: "pending" });  // Save status as 'pending'
+        taskDisplay.push({ text: task, status: "pending" });
         taskInput.value = "";
         saveTasks();
         displayTasks();
@@ -17,6 +17,13 @@ function addTask() {
         alert("Please enter a task");
     }
 }
+
+// Link the input field to detect the Enter key press to add a task
+taskInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") { 
+        addTask(); 
+    }
+});
 
 // Function to display tasks
 function displayTasks(filter = "all") {
@@ -37,6 +44,8 @@ function displayTasks(filter = "all") {
         // If the task is completed, style it differently
         if (task.status === "completed") {
             taskText.classList.add("completed");
+        } else {
+            taskText.style.color = "var(--primary-color)"
         }
 
         // Add a button to mark the task as complete
@@ -58,7 +67,6 @@ function displayTasks(filter = "all") {
         taskList.appendChild(li);
     });
 }
-
 
 // Function to mark task as completed
 function markComplete(index) {
@@ -84,54 +92,5 @@ function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(taskDisplay));
 }
 
-// Display all tasks on initial load
+// Display all tasks on page load
 displayTasks();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
