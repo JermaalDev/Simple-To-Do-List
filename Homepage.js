@@ -1,4 +1,4 @@
-//linking the html elements with variables to use in js 
+// linking the html elements with variables to use in js 
 const taskInput = document.getElementById("task-text");
 const taskList = document.getElementById("task-list");
 
@@ -27,45 +27,61 @@ taskInput.addEventListener("keydown", function(event) {
 
 // Function to display tasks
 function displayTasks(filter = "all") {
-    taskList.innerHTML = "";
+    taskList.innerHTML = "";  // Clear current task list
 
     // Filter tasks based on the selected filter
     let filteredTasks = taskDisplay.filter(task => 
         filter === "all" || task.status === filter
     );
 
-    filteredTasks.forEach((task, index) => {
-        const li = document.createElement("li");
+    // If no tasks match the filter, show a message
+    if (filteredTasks.length === 0) {
+        const message = document.createElement("li");
+        message.textContent = `There are no ${filter} tasks.`;
+        message.style.fontStyle = "italic";
+        taskList.appendChild(message);
+    } else {
+        filteredTasks.forEach((task, index) => {
+            const li = document.createElement("li");
 
-        // Create a span element for the task text
-        const taskText = document.createElement("span");
-        taskText.textContent = task.text;
+            // Create a span element for the task text
+            const taskText = document.createElement("span");
+            taskText.textContent = task.text;
 
-        // If the task is completed, style it differently
-        if (task.status === "completed") {
-            taskText.classList.add("completed");
-        } else {
-            taskText.style.color = "var(--primary-color)"
-        }
+            // If the task is completed, style it differently
+            if (task.status === "completed") {
+                taskText.style.color = "var(--secondary-color)";
+                taskText.classList.add("completed");
+                li.style.borderLeft = "5px solid var(--secondary-color)";  
+            } else {
+                taskText.style.color = "var(--primary-color)";
+                li.style.borderLeft = "5px solid var(--primary-color)";  
+            }
 
-        // Add a button to mark the task as complete
-        const completeButton = document.createElement("button");
-        completeButton.textContent = "Complete";
-        completeButton.onclick = () => markComplete(index);
+            // Add a delete button with updated style
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = () => deleteTask(index);
+            deleteButton.classList.add("delete-button");  
 
-        // Add a delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.onclick = () => deleteTask(index);
+            // Add a button to mark the task as complete
+            if (task.status !== "completed") { 
+                const completeButton = document.createElement("button");
+                completeButton.textContent = "Complete";
+                completeButton.onclick = () => markComplete(index);
+                li.appendChild(taskText);
+                li.appendChild(completeButton);  
+            } else {
+                li.appendChild(taskText);  
+            } 
 
-        // Append the task text and buttons to the list item
-        li.appendChild(taskText);
-        li.appendChild(completeButton);
-        li.appendChild(deleteButton);
+            // Append the delete button
+            li.appendChild(deleteButton);
 
-        // Add the list item to the task list
-        taskList.appendChild(li);
-    });
+            // Add the list item to the task list
+            taskList.appendChild(li);
+        });
+    }
 }
 
 // Function to mark task as completed
@@ -84,7 +100,7 @@ function deleteTask(index) {
 
 // Function to filter tasks based on the status
 function filterTasks(status) {
-    displayTasks(status); // Show tasks according to the selected filter (all, completed, or pending)
+    displayTasks(status); 
 }
 
 // Save tasks to localStorage

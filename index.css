@@ -1,5 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Liter&display=swap');
 
+@keyframes move {
+  100% {
+      transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}
+
+.background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  overflow: hidden;
+  z-index: -1; 
+}
+
+.background span {
+  width: 5vmin;
+  height: 5vmin;
+  border-radius: 5vmin;
+  backface-visibility: hidden;
+  position: absolute;
+  animation: move;
+  animation-duration: 25s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.background span:nth-child(1) {
+  color: #1e90ff;
+  top: 38%;
+  left: 78%;
+  animation-duration: 236s;
+  animation-delay: -79s;
+  transform-origin: -17vw 23vh;
+  box-shadow: 10vmin 0 1.35vmin currentColor;
+}
+
+.background span:nth-child(2) {
+  color: #1e90ff;
+  top: 71%;
+  left: 27%;
+  animation-duration: 57s;
+  animation-delay: -169s;
+  transform-origin: -4vw 24vh;
+  box-shadow: 10vmin 0 2.05vmin currentColor;
+}
+
+.background span:nth-child(3) {
+  color: #1e90ff;
+  top: 59%;
+  left: 21%;
+  animation-duration: 218s;
+  animation-delay: -220s;
+  transform-origin: 23vw -6vh;
+  box-shadow: -10vmin 0 1.93vmin currentColor;
+}
+
+.background span:nth-child(4) {
+  color: #ff8c00;
+  top: 53%;
+  left: 64%;
+  animation-duration: 85s;
+  animation-delay: -75s;
+  transform-origin: -19vw -4vh;
+  box-shadow: 10vmin 0 1.62vmin currentColor;
+}
+
+.background span:nth-child(5) {
+  color: #1e90ff;
+  top: 44%;
+  left: 30%;
+  animation-duration: 134s;
+  animation-delay: -138s;
+  transform-origin: 24vw -1vh;
+  box-shadow: 10vmin 0 1.83vmin currentColor;
+}
+
 :root {
   --primary-color: #1e90ff; 
   --secondary-color: #ff8c00; 
@@ -9,17 +88,24 @@ body {
   font-family: "Liter", serif;
   font-weight: 600;
   font-style: normal;
+  color: #333; 
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
 
 .header {
   text-align: center;
   background-color: var(--primary-color);
   color: white;
   padding: 20px;
-  border-radius: 8px;
 }
 
 .header-title {
+  font-size: 40px; 
   margin: 0;
 }
 
@@ -28,9 +114,10 @@ body {
 }
 
 .main-description {
+  font-size: 24px; 
   font-weight: 600;
-  font-size: 20px;
   color: var(--primary-color);
+  margin-top: 10px;
 }
 
 .task-input {
@@ -38,26 +125,26 @@ body {
 }
 
 .task-input input {
-  padding: 10px;
-  border-radius: 4px;
+  padding: 15px;
+  border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border: 2px solid var(--secondary-color);
   margin-bottom: 15px;
   outline: none;
-  width: 50%;
-  font-size: 20px;
+  width: 60%;
+  font-size: 18px;
 }
 
 .task-input button {
-  padding: 10px;
-  margin-left: 10px;
+  padding: 12px;
+  margin-left: 15px;
   background-color: var(--secondary-color);
   color: white;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .task-input button:hover {
@@ -88,16 +175,18 @@ body {
 
 #task-list li {
   list-style-type: none;
-  padding: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-top: 15px;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  margin-top: 20px;
   border-radius: 8px;
   width: 100%;
-  font-size: 20px;
+  font-size: 22px;
   border-left: 5px solid var(--primary-color);
   display: flex;
   justify-content: space-between; 
   align-items: center; 
+  text-align: center;
+  color: var(--primary-color);
 }
 
 #task-list span {
@@ -118,6 +207,15 @@ body {
 
 #task-list button:hover {
   background-color: var(--secondary-color);
+}
+
+#task-list li .delete-button {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+#task-list li .delete-button:hover {
+  background-color: var(--primary-color);
 }
 
 .completed {
